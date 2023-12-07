@@ -12,7 +12,7 @@
     "tailwindcss": "^3.3.6"
   },
   "scripts": {
-    "dev": "concurrently --kill-others \"npx tailwind -i ./src/input.css -o ./build/css/style.css --watch\" \"watchify build/micromodal.js build/dayjs.js -o build/bundle.js -v\""
+    "dev": "concurrently --kill-others \"npx tailwind -i ./src/input.css -o ./build/css/style.css --watch\" \"watchify build/micromodal.js build/dayjs.js build/changeTz.js -o build/bundle.js -v\""
   },  
   "keywords": [],
   "author": "",
