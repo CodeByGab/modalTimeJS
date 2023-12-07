@@ -18,9 +18,6 @@ writeDateOnScreen(dayjs.tz())
 writeHourOnScreen(dayjs.tz())
 setInterval(() => writeHourOnScreen(dayjs.tz()), 500);
 
-// let listTimezones = Intl.supportedValuesOf("timeZone");
-// console.log(listTimezones);
-
 function writeHourOnScreen(clockTime){
     const hourOnHtml = document.querySelector('#hour');
     hourOnHtml.textContent = getHourMinSec(clockTime);
