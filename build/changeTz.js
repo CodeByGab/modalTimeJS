@@ -1,5 +1,5 @@
 const closeDropDownMenu = require('./micromodal.js');
-const setDefaultTz = require('./dayjs.js');
+const { setDefaultTz, formartTimeZone } = require('./dayjs.js');
 
 // Catalog with some time zones
 const timezoneCatalog = [
