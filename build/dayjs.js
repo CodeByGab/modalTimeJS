@@ -7,16 +7,22 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 
 // set your city as the default time zone to start
-let defaultTimeZone = dayjs.tz.guess();
-dayjs.tz.setDefault(defaultTimeZone);
+function setDefaultTz() {
+    let defaultTimeZone = dayjs.tz.guess();
+    dayjs.tz.setDefault(defaultTimeZone);
+    return defaultTimeZone;
+}
 
 // display the default time zone on screen
-getTimeZone();
+getTimeZoneNWriteOnScreen();
 
 // display the date, hour on screen and start the clock
-writeDateOnScreen(dayjs.tz())
-writeHourOnScreen(dayjs.tz())
-setInterval(() => writeHourOnScreen(dayjs.tz()), 500);
+writeDateOnScreen(dayjs.tz());
+writeHourOnScreen(dayjs.tz());
+setInterval(() => {
+    writeHourOnScreen(dayjs.tz());
+    writeDateOnScreen(dayjs.tz());
+}, 500);
 
 function writeHourOnScreen(clockTime){
     const hourOnHtml = document.querySelector('#hour');
@@ -28,8 +34,13 @@ function writeDateOnScreen(dateTime){
     dateOnHtml.textContent = getDayMonthYear(dateTime);
 }
 
+function getTimeZoneNWriteOnScreen() {
+    const timeZoneHtml = document.querySelector('#timeZone');
+    timeZoneHtml.textContent = formartTimeZone(setDefaultTz());
+}
+
 function getDayMonthYear(timeTz){
-    return timeTz.format('dddd, D MMM, YYYY')
+    return timeTz.format('dddd, D MMM, YYYY');
 }
 
 function getHourMinSec(timeTz){
@@ -40,7 +51,5 @@ function formartTimeZone(timeZoneInput) {
     return timeZoneInput.replace(/_/g, ' ');
 }
 
-function getTimeZone() {
-    const timeZoneHtml = document.querySelector('#timeZone');
-    timeZoneHtml.textContent = formartTimeZone(defaultTimeZone);
-}
+
+module.exports = { setDefaultTz, formartTimeZone };
