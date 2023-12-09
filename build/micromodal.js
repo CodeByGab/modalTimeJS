@@ -1,6 +1,7 @@
 const MicroModal = require('micromodal');
 const dayjs = require('dayjs');
 const timezone = require('dayjs/plugin/timezone');
+const { setDefaultTz, formartTimeZone } = require('./dayjs.js');
 dayjs.extend(timezone);
 
 const dropDownMenu = document.querySelector('#dropDownMenu');
@@ -24,14 +25,12 @@ dropDownBtn.addEventListener('click', closeDropDownMenu)
 // Apply button
 const applyTzBtn = document.querySelector('#applyBtn');
 applyTzBtn.addEventListener('click', () => {
+    const tzChoosen = dropDownBtn.innerText;
 
-    if(dropDownBtn.innerHTML != defaultChangeTzText){
-        if(dropDownBtn.innerHTML == 'Your/Place'){
-            dayjs.tz.setDefault(dayjs.tz.guess());
-            console.log(dropDownBtn.innerText);
-        } else {
-            dayjs.tz.setDefault(dropDownBtn.innerText);
-        }
+    if(tzChoosen != 'Pick a timezone'){
+        dayjs.tz.setDefault(tzChoosen);
+        const timeZoneHtml = document.querySelector('#timeZone');
+        timeZoneHtml.textContent = formartTimeZone(tzChoosen);
     }
 
     if(!dropDownMenu.classList.contains('hidden')){
