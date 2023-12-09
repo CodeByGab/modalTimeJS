@@ -1,15 +1,14 @@
 const closeDropDownMenu = require('./micromodal.js');
+const setDefaultTz = require('./dayjs.js');
 
-let tzChosen = '';
-
-// I think this object is ready
+// Catalog with some time zones
 const timezoneCatalog = [
-    { name: "Your/Place", location: "Default", offset: "" },
-    { name: "Pacific/Auckland", location: "New Zealand", offset: "UTC+12:00" },
+    { name: setDefaultTz(), location: "Default", offset: "" },
+    { name: "Pacific/Auckland", location: "New Zealand", offset: "UTC+13:00" },
     { name: "Pacific/Fiji", location: "Fiji", offset: "UTC+12:00" },
-    { name: "Pacific/Norfolk", location: "Australia", offset: "UTC+11:00" },
+    { name: "Pacific/Norfolk", location: "Australia", offset: "UTC+12:00" },
+    { name: "Australia/Sydney", location: "Australia", offset: "UTC+11:00" },
     { name: "Pacific/Guam", location: "Guam", offset: "UTC+10:00" },
-    { name: "Australia/Sydney", location: "Australia", offset: "UTC+10:00" },
     { name: "Asia/Tokyo", location: "Japan", offset: "UTC+09:00" },
     { name: "Asia/Seoul", location: "South Korea", offset: "UTC+09:00" },
     { name: "Asia/Shanghai", location: "China", offset: "UTC+08:00" },
@@ -24,15 +23,15 @@ const timezoneCatalog = [
     { name: "Africa/Cairo", location: "Egypt", offset: "UTC+02:00" },
     { name: "Europe/Paris", location: "France", offset: "UTC+01:00" },
     { name: "Africa/Lagos", location: "Nigeria", offset: "UTC+01:00" },
+    { name: "Africa/Casablanca", location: "Morocco", offset: "UTC+01:00" },
     { name: "Europe/London", location: "United Kingdom", offset: "UTC+00:00" },
-    { name: "Africa/Casablanca", location: "Morocco", offset: "UTC+00:00" },
     { name: "Atlantic/Azores", location: "Azores, Portugal", offset: "UTC-01:00" },
     { name: "America/Noronha", location: "Fernando de Noronha, Brazil", offset: "UTC-02:00" },
     { name: "America/Argentina/Cordoba", location: "Argentina", offset: "UTC-03:00" },
-    { name: "America/New_York", location: "United States", offset: "UTC-05:00" },
     { name: "America/Caracas", location: "Venezuela", offset: "UTC-04:00" },
-    { name: "America/Chicago", location: "United States", offset: "UTC-06:00" },
+    { name: "America/New_York", location: "United States", offset: "UTC-05:00" },
     { name: "America/Lima", location: "Peru", offset: "UTC-05:00" },
+    { name: "America/Chicago", location: "United States", offset: "UTC-06:00" },
     { name: "America/Mexico_City", location: "Mexico", offset: "UTC-06:00" },
     { name: "America/Guatemala", location: "Guatemala", offset: "UTC-06:00" },
     { name: "America/Denver", location: "United States", offset: "UTC-07:00" },
@@ -41,13 +40,12 @@ const timezoneCatalog = [
     { name: "America/Anchorage", location: "Alaska, USA", offset: "UTC-09:00" },
     { name: "Pacific/Honolulu", location: "Hawaii, USA", offset: "UTC-10:00" },
     { name: "Pacific/Midway", location: "Midway Island, USA", offset: "UTC-11:00" },
-    { name: "Pacific/Honolulu", location: "Hawaii, USA", offset: "UTC-11:00" },
 ];
 
+// flex cursor-pointer border-b border-l border-white py-1 pl2 text-sm bg-neutral-900 hover:bg-neutral-950
 const classTailwind = [
     'flex',
     'cursor-pointer',
-    'text-base',
     'border-b',
     'border-l',
     'boder-white',
@@ -57,6 +55,8 @@ const classTailwind = [
     'bg-neutral-900',
     'hover:bg-neutral-950'
 ];
+
+// Create the list with all the timezones
 
 const dropDownUl = document.querySelector('#dropDownList');
 
@@ -71,12 +71,13 @@ timezoneCatalog.forEach((tzCatalog) => {
     });
 
     li.addEventListener('click', () => {
-        tzChosen = tzCatalog.name;
+        let tzChosen = tzCatalog.name;
         selectChosenTz(tzChosen);
     })
     dropDownUl.appendChild(li);
 });
 
+// Set the dropdown menu with the name of timezone choosen
 function selectChosenTz(tzName) {
     const dropDownBtn = document.querySelector('#dropDownBtn');
     const svgArrowDown = `
